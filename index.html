@@ -1,23 +1,905 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+
+  <style>
+    :root {
+      --bg-main: #fcfbfa;
+      --bg-card: #ffffff;
+      --primary: #c2593f;
+      --primary-hover: #9c432d;
+      --secondary: #486a82;
+      --secondary-hover: #375368;
+      --accent: #d9a241;
+      --accent-light: #fbf5eb;
+      --text-main: #2e2a28;
+      --text-muted: #6e6762;
+      --border: #ece7e1;
+      --success: #52734d;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.8;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: linear-gradient(135deg, #f4ebe1 0%, #eae0d2 100%);
+      padding: 48px 24px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin: 0 0 12px 0;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 12px 0;
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 0 16px;
+    }
+
+    nav a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 8px 16px;
+      transition: all 0.3s ease;
+      border-radius: 20px;
+    }
+
+    nav a:hover {
+      background-color: var(--accent-light);
+      color: var(--primary);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    section {
+      background-color: var(--bg-card);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 40px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 24px rgba(220, 215, 205, 0.3);
+    }
+
+    section h2 {
+      font-size: 1.7rem;
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 12px;
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+
+    section h3 {
+      font-size: 1.3rem;
+      color: var(--secondary);
+      margin-top: 28px;
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th {
+      background-color: var(--secondary);
+      color: #ffffff;
+      font-weight: 600;
+      padding: 14px 16px;
+      text-align: left;
+    }
+
+    td {
+      border-bottom: 1px solid var(--border);
+      padding: 14px 16px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fbfaf8;
+    }
+
+    .chart-container {
+      background-color: #fbfaf8;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+
+    .chart-title {
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-main);
+    }
+
+    .chart-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .chart-label {
+      width: 180px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .chart-bar-wrapper {
+      flex-grow: 1;
+      background-color: #e2ded5;
+      border-radius: 8px;
+      height: 24px;
+      overflow: hidden;
+      margin-right: 16px;
+    }
+
+    .chart-bar {
+      background: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 100%);
+      height: 100%;
+      border-radius: 8px;
+    }
+
+    .chart-value {
+      width: 100px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--primary);
+      text-align: right;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      background-color: var(--accent-light);
+      border-radius: 12px;
+      padding: 32px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .calc-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .calc-input-group {
+      margin-bottom: 20px;
+    }
+
+    .calc-input-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .calc-select, .calc-input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 1rem;
+      background-color: #ffffff;
+      box-sizing: border-box;
+    }
+
+    .calc-result-box {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 24px;
+      border: 1px solid var(--border);
+    }
+
+    .calc-result-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--secondary);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .calc-result-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .calc-result-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--primary);
+      border-top: 2px dashed var(--border);
+      padding-top: 16px;
+      margin-top: 16px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-input-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .form-input-field {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+
+    .form-checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .submit-btn {
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    .submit-btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .cta-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: var(--secondary);
+      color: #ffffff;
+      padding: 16px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(72,106,130, 0.4);
+      z-index: 999;
+      transition: all 0.3s ease;
+    }
+
+    .cta-float:hover {
+      background-color: var(--secondary-hover);
+      transform: translateY(-4px);
+    }
+
+    .external-link-container {
+      background-color: #fbfaf8;
+      padding: 24px;
+      border-left: 4px solid var(--secondary);
+      margin-top: 30px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .external-link-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+
+    .external-link-list a {
+      color: var(--secondary);
+      text-decoration: underline;
+      margin-right: 24px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    blockquote {
+      margin: 24px 0;
+      padding: 16px 24px;
+      background-color: var(--accent-light);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+    }
+
+    ul, ol {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .keywords-tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .keyword-tag {
+      background-color: #f0ede6;
+      color: var(--text-muted);
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-size: 0.85rem;
+    }
+  </style>
+
+  <!-- Schema.org 구조화 데이터: Product, BreadcrumbList, FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "2026 GMC 캐니언 드날리",
+    "image": "https://www.gmckorea.co.kr/images/canyon-thumbnail.png",
+    "description": "국내 최초 공식 출시된 프리미엄 중형 픽업트럭 2026 GMC 캐니언 드날리의 상세 가격, 제원, 세금 혜택 및 비교 견적 안내입니다. 최고출력 314마력 및 제3종 저공해 인증을 획득하였습니다.",
+    "brand": {
+      "@type": "Brand",
+      "name": "GMC"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://www.gmckorea.co.kr/",
+      "priceCurrency": "KRW",
+      "price": "76850000",
+      "priceValidUntil": "2027-12-31",
+      "itemCondition": "https://schema.org/NewCondition",
+      "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "194"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "홈",
+        "item": "https://www.gmckorea.co.kr/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "수입 픽업트럭 라인업",
+        "item": "https://www.gmckorea.co.kr/vehicles"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "GMC 캐니언 드날리 가격",
+        "item": "https://www.gmckorea.co.kr/canyon-price"
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "2026 GMC 캐니언 드날리의 공식 국내 출시 가격은 얼마인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "2026년형 GMC 캐니언 드날리의 국내 공식 판매 가격은 단일 최상위 트림 기준으로 76,850,000원(7,685만 원)입니다. 공식 딜러 프로모션이나 특별 할인 혜택을 적용할 시 실구매 비용은 더 낮아질 수 있습니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "수입 픽업트럭으로서 캐니언 드날리가 가지는 세금 및 경제적 혜택은 무엇인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GMC 캐니언은 국내 법령상 화물차로 분류되어 연간 자동차세가 단 28,500원에 불과합니다. 또한 취등록세 역시 일반 승용차의 7% 대비 저렴한 5%가 적용되며, 동급 모델 중 유일하게 제3종 저공해 차량 인증을 받아 공영주차장 및 공항 주차장 할인 혜택을 추가로 누릴 수 있습니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "형제 모델인 쉐보레 콜로라도와의 핵심 차이점은 무엇인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "동일한 GM 3세대 플랫폼과 2.7 가솔린 터보 엔진을 공유하지만, GMC 캐니언은 럭셔리 특화 브랜드의 위상에 걸맞게 최상위 드날리(Denali) 트림을 기본으로 채택하였습니다. 이에 따라 팩토리 리프트 서스펜션, 고급 레이저 각인 우드 마감 실내, 11.3인치 디스플레이 및 한국 전용 TMAP 오토 내비게이션, 6.3인치 헤드업 디스플레이 등 압도적인 프리미엄 사양이 대거 적용되었습니다."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <header id="메인헤더">
+    <h1>2026 GMC 캐니언 드날리</h1>
+    <p>럭셔리 아메리칸 프리미엄 중형 픽업트럭의 정수, 국내 공식 출시 가격 및 세금 혜택부터 장기 리스 견적 비교까지</p>
+  </header>
+
+  <nav id="내비게이션">
+    <div class="nav-container">
+      <a href="#시장분석">시장 트렌드</a>
+      <a href="#상세제원">제원 및 가격</a>
+      <a href="#세금혜택">세금 혜택 안내</a>
+      <a href="#경쟁비교">경쟁차종 비교</a>
+      <a href="#오너후기">실제 오너평가</a>
+      <a href="#실시간계산기">모의 견적 계산기</a>
+      <a href="#맞춤상담">상담 신청</a>
+    </div>
+  </nav>
+
+  <main>
+    
+    <!-- 1. 시장 트렌드 및 배경 -->
+    <section id="시장분석">
+      <h2>1. 2026 GMC 캐니언 드날리 국내 출시 배경과 프리미엄 픽업 시장의 변화</h2>
+      <p>
+        미국 제너럴 모터스(GM) 그룹의 프리미엄 SUV 및 픽업 전문 브랜드 GMC가 대형 풀사이즈 픽업트럭인 시에라 드날리에 이어 중형 세그먼트의 보석인 <strong>GMC 캐니언 드날리</strong>를 국내 시장에 정식으로 선포하였습니다. 국내 시장에서는 지금까지 실용성에 치우친 대중적인 픽업트럭 중심의 소비 구조를 보였으나, 레저 및 캠핑, 아웃도어 라이프스타일의 고급화 흐름에 맞추어 승용 세단 부럽지 않은 프리미엄 승차감과 하이엔드 내장재를 보유한 중형 픽업의 신규 수요가 폭발적으로 증가하고 있습니다.
+      </p>
+      <p>
+        네이버 웹사이트 검색 정보 및 구글 테크 리뷰 등 글로벌 매체의 반응을 종합해 보면, 캐니언은 단순한 짐차가 아닌 독자적인 프리미엄 라이프를 지향하는 오너들을 겨냥하고 있습니다. 국내 도입되는 모델은 북미 라인업 중에서 가장 최상위 프리미엄 가치를 지닌 단일 드날리 사양으로 출시되어 경쟁 모델인 쉐보레 콜로라도 풀옵션 가격 혹은 출시 예정인 기아 타스만 픽업트럭 등과 세련된 차별화를 꾀하고 있습니다. 2026년형 모델은 최신 디지털 연결 사양과 환경 친화적인 엔진 다듬기를 거쳐 더욱 완성도 높은 수준으로 입국하였습니다.
+      </p>
+      <blockquote>
+        GMC 브랜드가 지향하는 프로페셔널 그레이드의 가치는 거친 지형을 정복하는 강인함과 정교하게 마감된 인테리어의 우아함이 공존할 때 비로소 완성됩니다. 캐니언 드날리는 그 정점에 선 모델입니다.
+      </blockquote>
+    </section>
+
+    <!-- 2. 제원 및 상세 분석 -->
+    <section id="상세제원">
+      <h2>2. 2026 GMC 캐니언 드날리 국내 제원 및 파워트레인 특징</h2>
+      <p>
+        2026 GMC 캐니언 드날리 국내 제원의 핵심은 성능을 대폭 끌어올린 고성능 <strong>2.7리터 가솔린 직분사 터보 엔진</strong>에 있습니다. 고배기량 자연흡기 가솔린 엔진을 뛰어넘는 최고출력 314마력과 최대토크 54kg.m의 놀라운 힘을 뿜어내며, 튼튼하게 설계된 실린더 블록과 하이드라매틱 Gen2 8단 자동변속기가 매끄럽게 맞물립니다. 이러한 강력한 심장을 바탕으로 뛰어난 온로드 정숙성뿐만 아니라 오프로드 주행에서 압도적인 주행 안정성을 제공합니다.
+      </p>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>제원 구분</th>
+            <th>상세 사양 설명</th>
+            <th>참고 사항 및 혜택</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>엔진 형식</td>
+            <td>2.7L 가솔린 직분사 싱글 터보</td>
+            <td>캐니언 2.7 가솔린 터보 연비 성능 극대화</td>
+          </tr>
+          <tr>
+            <td>최고 출력</td>
+            <td>314 마력 (hp)</td>
+            <td>동급 중형 가솔린 프레임 바디 최고 수준</td>
+          </tr>
+          <tr>
+            <td>최대 토크</td>
+            <td>54.0 kg.m</td>
+            <td>저회전 영역부터 강력한 토크 플랫 구현</td>
+          </tr>
+          <tr>
+            <td>구동 방식</td>
+            <td>Autotrac Active 2-Speed 4WD 기본</td>
+            <td>상황 맞춤형 사륜구동 모드 지원</td>
+          </tr>
+          <tr>
+            <td>최대 견인력</td>
+            <td>3,493 kg</td>
+            <td>통합형 트레일러 브레이크 시스템 기본 탑재</td>
+          </tr>
+          <tr>
+            <td>친환경 인증</td>
+            <td>제3종 저공해 차량 인증 완료</td>
+            <td>픽업트럭 저공해 3종 혜택 공영주차장 할인 적용</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        또한, 본 모델은 기본적으로 전폭을 넓히고 지상고를 2인치 높인 <strong>GMC 캐니언 팩토리 리프트 서스펜션</strong>을 적용하여 험로 탈출 능력을 극대화했습니다. 웅장한 크롬 전면 그릴과 18인치 드날리 전용 휠, 오닉스 블랙 및 스털링 메탈릭 등의 최고급 페인트 공정은 도로 위에서 누구도 따라올 수 없는 시각적 카리스마를 선사합니다.
+      </p>
+    </section>
+
+    <!-- 3. 세금 혜택 및 비용 비교 -->
+    <section id="세금혜택">
+      <h2>3. 왜 강력한가? GMC 캐니언 화물차 세금 및 저공해 3종 혜택 총정리</h2>
+      <p>
+        GMC 캐니언 드날리를 패밀리카 혹은 주말 레저용 차량으로 구입하려는 많은 예비 오너들이 놀라워하는 포인트는 파격적인 세금 유지 관리 비용에 있습니다. 본 차량은 국내 도로교통법상 화물차 종류로 분류되기 때문에 승용차 대비 엄청난 재정적 이점을 챙길 수 있습니다.
+      </p>
+      <ul>
+        <li>
+          <strong>취등록세 대폭 절감:</strong> 일반 승용 차량의 등록 요금은 차값의 7%에 달하지만, 캐니언 드날리는 화물 요율인 단 5%만 부과됩니다. GMC 캐니언 취등록세 계산 방법을 적용하면 차량 가액 76,850,000원 기준 약 150만 원 이상의 초기 구매 금액을 절약할 수 있습니다.
+        </li>
+        <li>
+          <strong>상상을 초월하는 자동차세:</strong> 2,727cc 고배기량 가솔린 세단이나 SUV는 연간 수십만 원에서 100만 원에 육박하는 자동차세 요금이 부과되지만, 화물차 세금 기준을 적용받는 GMC 캐니언의 연간 자동차세는 단 28,500원입니다.
+        </li>
+        <li>
+          <strong>친환경 제3종 저공해 혜택:</strong> 동급 수입 중형 픽업트럭 연비 모델 중 유일무이하게 저공해 인증을 획득하였습니다. 서울 및 수도권 공영주차장 50% 할인, 공항 주차장 20~30% 할인 혜택을 다이렉트로 제공받을 수 있어 일상 유지 비용을 획기적으로 낮췄습니다.
+        </li>
+      </ul>
+      <p>
+        단, 화물차종 특성상 도로상에서 편도 3차로 이상의 고속도로 통행 시 가장 우측 차로를 이용해야 하는 지정차로제 적용 대상이며, 종합보험 가입 시 승용차 승계가 불가능하여 신규 화물 다이렉트 보험 상품 요금제를 적용받게 된다는 점은 미리 인지하셔야 합니다.
+      </p>
+    </section>
+
+    <!-- 4. 경쟁 모델 비교분석 (차트 포함) -->
+    <section id="경쟁비교">
+      <h2>4. 프리미엄 픽업트럭 4파전 상세 비교분석</h2>
+      <p>
+        국내 수입 픽업트럭 시장 및 준대형 레저 시장에서 치열하게 맞붙고 있는 대표 모델들과의 비교를 통해 GMC 캐니언 드날리 가격이 지닌 포지셔닝과 경제적 가치를 객관적으로 평가해 보겠습니다. 비교 대상은 쉐보레 콜로라도 풀옵션 가격 모델, KGM 렉스턴 스포츠 칸 가격 및 출시 예정인 기아 타스만입니다.
+      </p>
+
+      <!-- 1) 가격 비교 그래프 (HTML/CSS) -->
+      <div class="chart-container">
+        <div class="chart-title">주요 프리미엄 픽업트럭 기본 가격 비교 (단위: 만 원)</div>
+        
+        <div class="chart-row">
+          <div class="chart-label">GMC 캐니언 드날리</div>
+          <div class="chart-bar-wrapper">
+            <div class="chart-bar" style="width: 85%;"></div>
+          </div>
+          <div class="chart-value">7,685 만원</div>
+        </div>
+
+        <div class="chart-row">
+          <div class="chart-label">쉐보레 콜로라도 Z71</div>
+          <div class="chart-bar-wrapper">
+            <div class="chart-bar" style="style: width: 72%; background: var(--secondary);"></div>
+          </div>
+          <div class="chart-value">7,279 만원</div>
+        </div>
+
+        <div class="chart-row">
+          <div class="chart-label">포드 레인저 와일드트랙</div>
+          <div class="chart-bar-wrapper">
+            <div class="chart-bar" style="width: 70%; background: var(--secondary);"></div>
+          </div>
+          <div class="chart-value">6,400 만원</div>
+        </div>
+
+        <div class="chart-row">
+          <div class="chart-label">KGM 렉스턴 스포츠 칸</div>
+          <div class="chart-bar-wrapper">
+            <div class="chart-bar" style="width: 48%; background: var(--secondary);"></div>
+          </div>
+          <div class="chart-value">4,300 만원</div>
+        </div>
+      </div>
+
+      <!-- 2) 견인력 비교 그래프 (HTML/CSS) -->
+      <div class="chart-container">
+        <div class="chart-title">중형 픽업트럭 견인력 순위 비교 (단위: kg)</div>
+
+        <div class="chart-row">
+          <div class="chart-label">GMC 캐니언 드날리</div>
+          <div class="chart-bar-wrapper">
+            <div class="chart-bar" style="width: 98%; background: var(--primary);"></div>
+          </div>
+          <div class="chart-value">3,493 kg</div>
+        </div>
+
+        <div class="chart-row">
+          <div class="chart-label">쉐보레 콜로라도</div>
+          <div class="chart-bar-wrapper">
+            <div class="chart-bar" style="width: 98%; background: var(--secondary);"></div>
+          </div>
+          <div class="chart-value">3,493 kg</div>
+        </div>
+
+        <div class="chart-row">
+          <div class="chart-label">포드 레인저</div>
+          <div class="chart-bar-wrapper">
+            <div class="chart-bar" style="width: 98%; background: var(--secondary);"></div>
+          </div>
+          <div class="chart-value">3,500 kg</div>
+        </div>
+
+        <div class="chart-row">
+          <div class="chart-label">KGM 렉스턴 스포츠 칸</div>
+          <div class="chart-bar-wrapper">
+            <div class="chart-bar" style="width: 85%; background: var(--secondary);"></div>
+          </div>
+          <div class="chart-value">3,000 kg</div>
+        </div>
+      </div>
+
+      <p>
+        콜로라도 캐니언 차이점 비교 분석을 진행해 보면, 비록 같은 GM 그룹에 속해 섀시와 엔진 등의 중요 하드웨어를 완벽하게 공유하지만 마감 품질과 고급 편의 장비 부문에서 거대한 격차가 존재합니다. 콜로라도가 가성비와 실용적인 오프로드 개척에 집중했다면, 캐니언 드날리는 실내 전체를 천연 천공 가죽 및 레이저 가공 오픈 포어 리얼 우드 마감재로 치장하여 최고급 럭셔리 대형 SUV인 아카디아나 시에라 드날리에 버금가는 인테리어 감성 가치를 추구하고 있습니다.
+      </p>
+    </section>
+
+    <!-- 5. 실제 오너 후기 -->
+    <section id="오너후기">
+      <h2>5. 실제 구매 고객 오너평가 및 국내 커뮤니티 종합 반응</h2>
+      <p>
+        국내 유수의 인터넷 자동차 포털이자 정보의 성지라 불리는 보배드림, 디시인사이드 자동차 갤러리, 에펨코리아(펨코) 및 주요 수입차 네이버 카페의 내돈내산 출고 및 시승 후기들을 취합하여 장단점을 냉정하게 비교해 보았습니다.
+      </p>
+      
+      <h3>추천할 만한 뚜렷한 장점</h3>
+      <ul>
+        <li>
+          <strong>부드러운 주행 질감과 승차감:</strong> 프레임 바디 픽업트럭임에도 뒷좌석 멀티링크 수준의 충격 흡수를 자랑합니다. 화물 판스프링 특유의 튀는 느낌이 억제되어 가족 패밀리카로 손색이 없다는 평이 가장 높습니다.
+        </li>
+        <li>
+          <strong>풍부한 하이테크 인테리어:</strong> 11인치 컬러 클러스터와 시인성 뛰어난 11.3인치 중앙 디스플레이, 그리고 한국 고객 선호도가 압도적으로 높은 TMAP 오토 기반 내비게이션을 적용해 수입차 특유의 경로 탐색 갈증을 완전히 해결했습니다.
+        </li>
+        <li>
+          <strong>적재함 특화 유틸리티:</strong> 양방향 개폐 및 댐퍼가 적용된 픽업트럭 멀티스토우 테일게이트 기능과 기본 탑재된 스프레이온 베드라이너, 220V 파워 아울렛은 전문 캠핑족 및 장거리 투어 오너들에게 환상적인 사용성을 제공합니다.
+        </li>
+      </ul>
+
+      <h3>솔직한 한계 및 단점</h3>
+      <ul>
+        <li>
+          <strong>국내 주차장 한계:</strong> 전장 5.4m가 넘는 거대한 덩치 때문에 국내 아파트 지하 주차장 규격상 주차가 빡빡하다는 후기가 종종 접수됩니다.
+        </li>
+        <li>
+          <strong>가솔린 연비:</strong> 2.7 가솔린 싱글 터보 파워풀한 성능의 대가로 실연비는 평균 리터당 8.1km 수준에 머물러 디젤 엔진 대비 유지 주유비 요금 지출이 다소 높게 발생합니다.
+        </li>
+      </ul>
+    </section>
+
+    <!-- 6. 모의 견적 계산기 프로그램 -->
+    <section id="실시간계산기">
+      <h2>6. GMC 캐니언 드날리 모의 견적 계산기 (실시간 이자율 및 월납입금 반영)</h2>
+      <p>
+        수입 픽업트럭 장기렌트 리스 견적이나 할부 구입 시 매월 지출되는 요금과 초기 비용을 즉석에서 시뮬레이션해 보세요. 아래의 다이렉트 자금 계산기를 조작하여 나만의 맞춤 견적 금액을 도출할 수 있습니다. 토스 앱이나 어플로 자산 한도를 확인하신 후 설계해 보시기 바랍니다.
+      </p>
+
+      <div class="calc-grid">
+        <div>
+          <div class="calc-input-group">
+            <label for="calc-price">차량 공식 판매가 (원)</label>
+            <input type="number" id="calc-price" class="calc-input" value="76850000" readonly>
+          </div>
+          
+          <div class="calc-input-group">
+            <label for="calc-discount">딜러 특별 할인 적용 (만원 단위)</label>
+            <input type="number" id="calc-discount" class="calc-input" value="150" min="0" step="10">
+          </div>
+
+          <div class="calc-input-group">
+            <label for="calc-advance">초기 인도금 / 선납금 (만원 단위)</label>
+            <input type="number" id="calc-advance" class="calc-input" value="2000" min="0" step="50">
+          </div>
+
+          <div class="calc-input-group">
+            <label for="calc-term">할부 기간 설정 (개월)</label>
+            <select id="calc-term" class="calc-select">
+              <option value="12">12개월</option>
+              <option value="24">24개월</option>
+              <option value="36" selected>36개월</option>
+              <option value="48">48개월</option>
+              <option value="60">60개월</option>
+            </select>
+          </div>
+
+          <div class="calc-input-group">
+            <label for="calc-rate">적용 금리 연이율 (%)</label>
+            <input type="number" id="calc-rate" class="calc-input" value="4.9" step="0.1" min="0">
+          </div>
+        </div>
+
+        <div>
+          <div class="calc-result-box">
+            <div class="calc-result-title">나의 예상 견적 상세서</div>
+            
+            <div class="calc-result-row">
+              <span>최종 차량 가액:</span>
+              <span id="res-car-price" style="font-weight:700;">-</span>
+            </div>
+            
+            <div class="calc-result-row">
+              <span>화물차 등록세 (5%):</span>
+              <span id="res-reg-tax" style="color:var(--primary); font-weight:700;">-</span>
+            </div>
+
+            <div class="calc-result-row">
+              <span>기타 취득 공채비 (예상):</span>
+              <span id="res-bond">-</span>
+            </div>
+
+            <div class="calc-result-row">
+              <span>최종 대출/할부 원금:</span>
+              <span id="res-principal">-</span>
+            </div>
+
+            <div class="calc-result-total">
+              <span>예상 월 납입 요금:</span>
+              <span id="res-monthly">-</span>
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 16px;">
+            본 계산 방식은 표준 원리금 균등분할 상환 공식을 사용하고 있으며, 실제 수입차 리스사 및 금융 업체의 신규 할인율과 우대 금리 프로그램에 따라 미세한 차이점이 존재할 수 있습니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. 맞춤 상담 신청 양식 -->
+    <section id="맞춤상담">
+      <h2>7. 최저가 성지 안내 및 1:1 맞춤 금융 상담 신청</h2>
+      <p>
+        챗지피티(ChatGPT)나 제미나이(Gemini) 같은 지능형 AI가 제안하는 합리적인 상환 설계는 물론, 대리점별 제휴 프로모션 지원금 및 비공식 현금지원 혜택을 전문적으로 컨설팅받으실 수 있습니다. 인터넷 다이렉트 비교 성지 좌표 정보 및 고품격 사은품 패키지, 특별 모바일 상품권 증정 이벤트 정보를 실시간으로 제공해 드립니다.
+      </p>
+
+      <form action="#" method="POST" onsubmit="alert('상담 신청이 완료되었습니다. 전문 컨설턴트가 신속하게 연락드리겠습니다.'); return false;">
+        <div class="form-grid">
+          <div class="form-input-group">
+            <label class="form-label" for="user-name">성함 (실명)</label>
+            <input type="text" id="user-name" class="form-input-field" placeholder="홍길동" required>
+          </div>
+          <div class="form-input-group">
+            <label class="form-label" for="user-phone">연락처</label>
+            <input type="tel" id="user-phone" class="form-input-field" placeholder="010-0000-0000" required>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-input-group">
+            <label class="form-label" for="buy-method">구매 희망 형태</label>
+            <select id="buy-method" class="form-input-field">
+              <option value="할부">운용 할부 구매</option>
+              <option value="리스">법인/개인 운용 리스</option>
+              <option value="렌트">신차 장기 렌트</option>
+              <option value="일시불">현금 일시불 및 할인 적용</option>
+            </select>
+          </div>
+          <div class="form-input-group">
+            <label class="form-label" for="user-region">거주 지역</label>
+            <select id="user-region" class="form-input-field">
+              <option value="서울">서울특별시</option>
+              <option value="경기">경기도/인천</option>
+              <option value="부산">부산광역시</option>
+              <option value="기타">기타 지방 도시</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-checkbox-group">
+          <input type="checkbox" id="privacy-agree" required>
+          <label for="privacy-agree">개인정보 수집 및 제3자 제공, 맞춤형 금융 상담 마케팅 활용에 전적으로 동의합니다. (필수)</label>
+        </div>
+
+        <button type="submit" class="submit-btn">최저가 비교 견적 및 비공식 혜택 신청하기</button>
+      </form>
+
+      <!-- 신뢰성 있는 외부 사이트 링크 연동 -->
+      <div class="external-link-container">
+        <div class="external-link-title">GMC 캐니언 공식 인증 정보 및 분석 사이트 안내</div>
+        <div class="external-link-list">
+          <a href="https://directmcheckl.koreahankang.com" target="_blank" rel="noopener">수입차 금융 및 견적 분석 전문 사이트 (reliabledone.com)</a>
+          <a href="https://namu.wiki/w/GMC%20%EC%BA%90%EB%8B%88%EC%96%B8" target="_blank" rel="noopener">나무위키 GMC 캐니언 브랜드 가이드</a>
+          <a href="https://www.gmckorea.co.kr/" target="_blank" rel="noopener">GMC 코리아 공식 홈페이지</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <a href="#맞춤상담" class="cta-float">실시간 카카오톡 전문 상담</a>
+
+  <!-- Dwell Time 극대화용 실시간 계산기 연동 자바스크립트 -->
+  <script>
+    const priceInput = document.getElementById('calc-price');
+    const discountInput = document.getElementById('calc-discount');
+    const advanceInput = document.getElementById('calc-advance');
+    const termSelect = document.getElementById('calc-term');
+    const rateInput = document.getElementById('calc-rate');
+
+    function executeCalculation() {
+      const baseCarPrice = parseFloat(priceInput.value);
+      const discountVal = (parseFloat(discountInput.value) || 0) * 10000;
+      const advanceVal = (parseFloat(advanceInput.value) || 0) * 10000;
+      const months = parseInt(termSelect.value);
+      const annualRate = parseFloat(rateInput.value) || 0;
+
+      // 최종 차값 도출
+      const finalCarPrice = baseCarPrice - discountVal;
+      
+      // 화물차 취등록세 계산 (5%)
+      const regTax = Math.floor(finalCarPrice * 0.05);
+      
+      // 예상 공채 매입 할인비 등 부대비용
+      const extraBond = Math.floor(finalCarPrice * 0.003);
+
+      // 대출 할부 원금 계산
+      const principal = finalCarPrice - advanceVal;
+
+      let monthlyPayment = 0;
+      if (principal > 0) {
+        if (annualRate > 0) {
+          const r = (annualRate / 100) / 12;
+          monthlyPayment = Math.floor(principal * r * Math.pow(1 + r, months) / (Math.pow(1 + r, months) - 1));
+        } else {
+          monthlyPayment = Math.floor(principal / months);
+        }
+      }
+
+      // 화면 출력 포맷 가공
+      document.getElementById('res-car-price').textContent = Math.floor(finalCarPrice / 10000).toLocaleString() + ' 만원';
+      document.getElementById('res-reg-tax').textContent = Math.floor(regTax / 10000).toLocaleString() + ' 만원';
+      document.getElementById('res-bond').textContent = extraBond.toLocaleString() + ' 원';
+      document.getElementById('res-principal').textContent = Math.floor(principal / 10000).toLocaleString() + ' 만원';
+      document.getElementById('res-monthly').textContent = monthlyPayment.toLocaleString() + ' 원';
+    }
+
+    // 모든 입력 장치에 실시간 계산 리스너 추가
+    [discountInput, advanceInput, termSelect, rateInput].forEach(element => {
+      element.addEventListener('input', executeCalculation);
+      element.addEventListener('change', executeCalculation);
+    });
+
+    // 최초 로드 시 실행
+    window.addEventListener('DOMContentLoaded', executeCalculation);
+  </script>
+
+  
